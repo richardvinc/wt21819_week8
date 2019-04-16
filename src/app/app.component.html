@@ -23,23 +23,44 @@ nama dirty: {{nama.dirty}} <br />
 <h3>Status form Anda</h3>
 valid: {{myForm.valid}} -->
 
-<h2>Isi form</h2>
-{{form | json}}
-
 <h1>Reactive Form</h1>
 <form (ngSubmit)="submit2()" [formGroup]="myReactiveForm">
-  Nama: <input type="text" formControlName="nama"> <br />
-  <p *ngIf="nama.errors?.required">Atribut nama harus diisi</p>
-  <p *ngIf="nama.errors?.minlength">Atribut nama harus minimal 5 karakter</p>
-  <p *ngIf="nama.errors?.maxlength">Atribut nama harus maksimal 20 karakter</p>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Nama</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" formControlName="nama" placeholder="Masukkan nama Anda" />
+    </div>
+  </div>
+  <div class="alert alert-warning" role="alert" *ngIf="nama.errors?.required && nama.touched">
+    Atribut nama harus diisi
+  </div>
+  <div class="alert alert-warning" role="alert" *ngIf="nama.errors?.minlength && nama.touched">
+    Atribut nama harus minimal 5 karakter
+  </div>
+  <div class="alert alert-warning" role="alert" *ngIf="nama.errors?.maxlength && nama.touched">
+    Atribut nama harus maksimal 20 karakter
+  </div>
 
-  Umur: <input type="text" formControlName="umur"> <br />
-  <p *ngIf="umur.errors?.required">Atribut umur harus diisi</p>
-  <p *ngIf="umur.errors?.min">umur minimal 18 tahun</p>
-  <p *ngIf="umur.errors?.max">umur maksimal 80 tahun</p>
+  <div class="form-group row">
+    <label class="col-sm-2 col-form-label">Umur</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" formControlName="umur" placeholder="Masukkan umur Anda" />
+    </div>
+  </div>
+  <div class="alert alert-warning" role="alert" *ngIf="umur.errors?.required && umur.touched">
+    Atribut umur harus diisi
+  </div>
+  <div class="alert alert-warning" role="alert" *ngIf="umur.errors?.min && umur.touched">
+    Umur minimal 18 tahun
+  </div>
+  <div class="alert alert-warning" role="alert" *ngIf="umur.errors?.max && umur.touched">
+    Umur minimal 80 tahun
+  </div>
 
-  <input type="checkbox" formControlName="check"> I agree with ...
-  <p *ngIf="check.errors?.requiredtrue">Anda harus setuju</p>
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" formControlName="check">
+    <label class="form-check-label" for="exampleCheck1">Saya setuju dengan syarat dan ketentuan yang berlaku</label>
+  </div>
 
-  <input type="submit" value="Submit" [disabled]="myReactiveForm.invalid">
+  <input type="submit" class="btn btn-primary" value="Submit" [disabled]="myReactiveForm.invalid" />
 </form>
