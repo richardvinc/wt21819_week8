@@ -1,21 +1,45 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!-- <h2>Template-drive form</h2>
+<form (ngSubmit)="submit1()" #myForm="ngForm">
+  Nama:
+  <input #nama="ngModel" required type="text" name="nama" [(ngModel)]="formModel.nama"><br />
 
-<router-outlet></router-outlet>
+  <p *ngIf="!nama.valid && nama.touched">Atribut nama harus diisi</p>
+
+  Umur:
+  <input #umur="ngModel" required type="text" name="umur" [(ngModel)]="formModel.umur"><br />
+
+  <p *ngIf="!umur.valid">Atribut umur harus diisi</p>
+
+  <button type="submit" [disabled]="!myForm.valid">Submit</button>
+</form>
+
+<h2>Isian form Anda</h2>
+Nama: {{nama.value}} <br />
+nama valid: {{nama.valid}} <br />
+nama touched: {{nama.touched}} <br />
+nama pristine: {{nama.pristine}} <br />
+nama dirty: {{nama.dirty}} <br />
+
+<h3>Status form Anda</h3>
+valid: {{myForm.valid}} -->
+
+<h2>Isi form</h2>
+{{form | json}}
+
+<h1>Reactive Form</h1>
+<form (ngSubmit)="submit2()" [formGroup]="myReactiveForm">
+  Nama: <input type="text" formControlName="nama"> <br />
+  <p *ngIf="nama.errors?.required">Atribut nama harus diisi</p>
+  <p *ngIf="nama.errors?.minlength">Atribut nama harus minimal 5 karakter</p>
+  <p *ngIf="nama.errors?.maxlength">Atribut nama harus maksimal 20 karakter</p>
+
+  Umur: <input type="text" formControlName="umur"> <br />
+  <p *ngIf="umur.errors?.required">Atribut umur harus diisi</p>
+  <p *ngIf="umur.errors?.min">umur minimal 18 tahun</p>
+  <p *ngIf="umur.errors?.max">umur maksimal 80 tahun</p>
+
+  <input type="checkbox" formControlName="check"> I agree with ...
+  <p *ngIf="check.errors?.requiredtrue">Anda harus setuju</p>
+
+  <input type="submit" value="Submit" [disabled]="myReactiveForm.invalid">
+</form>
